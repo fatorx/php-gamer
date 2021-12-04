@@ -6,4 +6,4 @@
 
 ## License & Copyright
 
-All materials here are under **[MIT Licence](https://github.com/fatorx/php-gamer/blob/main/LICENCE.md)**.
+All materials here are under **[MIT Licence](https://github.com/fatorx/php-gamer/blob/main/LICENSE.md)**.
