@@ -2,7 +2,7 @@
 
 **[Short story](https://github.com/fatorx/php-gamer/blob/main/docs/SHORT-STORY.md)**
 
-**[Contributing](https://github.com/fatorx/php-gamer/main/docs/CONTRIBUTING.md)**
+**[Contributing](https://github.com/fatorx/php-gamer/blog/main/docs/CONTRIBUTING.md)**
 
 ## License & Copyright
 

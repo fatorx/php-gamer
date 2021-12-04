@@ -7,6 +7,6 @@ I thought it would be cool. And now here is the beginning of this idea.
 
 ---
 
-**[Contributing](https://github.com/fatorx/php-gamer/main/docs/CONTRIBUTING.md)**
+**[Contributing](https://github.com/fatorx/php-gamer/blog/main/docs/CONTRIBUTING.md)**
 
 **[PHP-Gamer](https://github.com/fatorx/php-gamer)**
