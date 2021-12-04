@@ -20,8 +20,8 @@ services:
     working_dir: /mnt/api/
     volumes:
       - ./api:/mnt/api/
-      - .env:/mnt/api/.env
       - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini
+      - .env:/mnt/api/.env
     ports:
       - "8000:8000"
 

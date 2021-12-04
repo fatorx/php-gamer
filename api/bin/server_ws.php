@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * see https://www.swoole.co.uk/docs/modules/swoole-websocket-server
+ */
 use Swoole\WebSocket\Server;
 use Swoole\Http\Request;
 use Swoole\WebSocket\Frame;
@@ -14,7 +16,7 @@ $server->on("Start", function (Server $server) use ($port) {
 $server->on('Open', function (Server $server, Swoole\Http\Request $request) {
     echo "connection open: {$request->fd}\n";
 
-    $server->tick(1000, function () use ($server, $request) {
+    $server->tick(5000, function () use ($server, $request) {
         $server->push($request->fd, json_encode(["hello", time()]));
     });
 });
