@@ -1,5 +1,5 @@
 # Composer files
-composer.phar
+composer.phardi
 vendor/
 
 # Local configs
