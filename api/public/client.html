@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP-Gamer</title>
+
+    <link href="css/generic-styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="options hide">
+    <h2>Options</h2>
+    <a href="" id="#session-users">List</a>
+    -
+    <a href="" id="#session-close">Close</a>
+</div>
+
+<script>
+
+    let host='localhost';
+    let port=8000;
+
+    const ws = new WebSocket('ws://'+ host + ':' + port);
+
+    ws.onopen = () => {
+        console.log("Opening a connection...");
+        window.status_ws = true;
+        actions.init()
+    };
+
+    ws.onclose = () => {
+        console.log("Close a connection...");
+    };
+
+    ws.addEventListener('message', (message) => {
+        control(message, actions)
+    });
+
+    const control = (message, obj) => {
+        const data = JSON.parse(message.data)
+        let actionName = getActionFunction(data.action)
+        if (typeof(obj[actionName]) == 'function') {
+            obj[actionName](data)
+            return true;
+        }
+        console.log('Function for return - ' + actionName + ' - is not defined!');
+        return false;
+    }
+
+    const getActionFunction = (action) => {
+        let funcPars = action.split('-')
+        let parts = funcPars.length
+        let actionName = ''
+        for (let i = 0; i < parts; ++i) {
+            if (i > 0) {
+                funcPars[i] = capitalizeFirstLetter(funcPars[i])
+            }
+            actionName += funcPars[i]
+        }
+        return actionName + 'Message'
+    }
+
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    const actions = {
+        state: {
+            start:false,
+            enter: false
+        },
+        init: () => {
+
+            actions.setActionClick('#session-users', actions.list)
+            actions.setActionClick('#session-close', actions.closeSession)
+        },
+        closeSession: e => {
+            e.preventDefault()
+            console.log('closeSession')
+            ws.close();
+        },
+        helloMessage: (data) => {
+            console.log(data)
+        },
+        setDisplay: (id, status) => {
+            document.getElementById(id).style.display = status
+        },
+        setActionClick: (id, fn) => {
+            document.getElementById(id).addEventListener('click', fn)
+        }
+    }
+
+</script>
+
+</body>
+</html>

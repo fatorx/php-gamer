@@ -1,3 +1,3 @@
 <?php
 
-printf('Hello World PHP-Gamer!');
+echo ('Hello World PHP-Gamer!');

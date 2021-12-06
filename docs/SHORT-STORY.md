@@ -9,4 +9,6 @@ I thought it would be cool. And now here is the beginning of this idea.
 
 **[Contributing](https://github.com/fatorx/php-gamer/blob/main/docs/CONTRIBUTING.md)**
 
+**[Proposal](https://github.com/fatorx/php-gamer/blob/main/docs/CONTRIBUTING.md)**
+
 **[PHP-Gamer](https://github.com/fatorx/php-gamer)**
