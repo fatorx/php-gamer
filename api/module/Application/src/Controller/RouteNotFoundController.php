@@ -2,15 +2,17 @@
 
 namespace Application\Controller;
 
+use Laminas\View\Model\JsonModel;
+
 class RouteNotFoundController extends ApiController
 {
 
     /**
      * Not Found Route for api give an error to api
-     * 
-     * @return JSON
+     *
+     * @return JsonModel
      */
-    public function routenotfoundAction()
+    public function routeNotFoundAction(): JsonModel
     {
         $config = $this->getEvent()->getParam('config', false);
         $this->httpStatusCode = 404;

@@ -3,7 +3,6 @@
 namespace Application;
 
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\EventManager\EventInterface;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Http\Request;
 use Doctrine\ORM\EntityManager;
@@ -55,8 +54,8 @@ class Module
 
         $e->getApplication()->getEventManager()->attach(MvcEvent::EVENT_FINISH, function ($e) use ($data) {
             $serviceManager = $e->getApplication()->getServiceManager();
-            $reqResService = $serviceManager->get(RequestResponseService::class);
-            $reqResService->register($e->getApplication(), $data);
+            //$reqResService = $serviceManager->get(RequestResponseService::class);
+            //$reqResService->register($e->getApplication(), $data);
         });
 
         $e->getApplication()->getEventManager()->attach(MvcEvent::EVENT_FINISH, function ($e) {

@@ -59,5 +59,4 @@ if ($environment == 'dev') {
     $hotReload->attachToServer($server);
 }
 
-
 $server->start();

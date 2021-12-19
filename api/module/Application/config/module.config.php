@@ -9,15 +9,15 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'test' => [
+            'home' => [
                 'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/test',
+                    'route'    => '/ping',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'isAuthorizationRequired' => false,
                         'methodsAuthorization'    => ['GET'],
-                        'action'     => 'test',
+                        'action'     => 'index',
                     ],
                 ],
             ],
@@ -27,7 +27,7 @@ return [
                     'route' => '/:*',
                     'defaults' => [
                         'controller' => Controller\RouteNotFoundController::class,
-                        'action' => 'routenotfound',
+                        'action' => 'routeNotFound',
                     ],
                 ],
             ],

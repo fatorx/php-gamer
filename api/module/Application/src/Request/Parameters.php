@@ -14,7 +14,7 @@ class Parameters
     /**
      * @var array|string
      */
-    private array $sendData;
+    private array|string $sendData;
 
     /**
      * @var string
@@ -51,17 +51,17 @@ class Parameters
     }
 
     /**
-     * @param mixed|string $route
+     * @param string $route
      * @return Parameters
      */
-    public function setRoute(mixed $route): Parameters
+    public function setRoute(string $route): Parameters
     {
         $this->route = $route;
         return $this;
     }
 
     /**
-     * @return array|mixed|string
+     * @return mixed
      */
     public function getSendData(): mixed
     {
@@ -79,7 +79,7 @@ class Parameters
     }
 
     /**
-     * @return mixed|string
+     * @return mixed
      */
     public function getToken(): mixed
     {
@@ -97,7 +97,7 @@ class Parameters
     }
 
     /**
-     * @return mixed|string
+     * @return mixed
      */
     public function getAction(): mixed
     {
