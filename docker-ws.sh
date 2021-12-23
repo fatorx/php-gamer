@@ -4,4 +4,4 @@ fi
 
 docker-compose down
 docker-compose up -d
-docker exec -i ${APP}-php-fpm php bin/server_ws.php
+docker exec -i ${APP}-php-fpm php bin/laminas-swoole.php

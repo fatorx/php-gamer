@@ -28,7 +28,14 @@ $server->on('open', function(Server $server, Request $request) use ($c) {
     Console::info("Connection open (user: {$request->fd}, worker: {$server->getWorkerId()})");
     Console::info('Total connections: '.count($c->getConnections()));
 
-    $server->push($request->fd, json_encode(["hello", count($c->getConnections())]));
+    $data = [
+        'result' => [
+            'action'  => 'hello',
+            'message' => 'Hello WS',
+        ],
+        'request_time' => (new \Datetime())->format('Y-m-d H:i:s.u')
+    ];
+    $server->push($request->fd, json_encode($data));
 });
 
 $server->on('start', new StartEvent($bootstrapConfig, $swoolePort));

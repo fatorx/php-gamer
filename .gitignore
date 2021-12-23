@@ -25,4 +25,5 @@ data/DoctrineORMModule/cache/
 d-*
 /docker/mysql/*
 .run/
+docker/php
 docker-compose-unit.yml

@@ -1,4 +1,5 @@
 <?php
+//echo "\n here \n"; exit();
 
 use Application\Http\Header\Custom;
 use Laminas\Http\Headers;
@@ -10,7 +11,7 @@ $bootstrapConfig = include __DIR__ . '/bootstrap.php';
 $app             = Application::init($bootstrapConfig);
 $appConfig       = $app->getConfig()['app'];
 
-$route = $argv[1] ?? '';
+$route = $argv[1] ?? '/';
 $pars  = $argv[2] ?? '';
 
 /** @var Request $request */
@@ -23,8 +24,12 @@ if ($pars) {
     $headers->addHeader($headerContentType);
     $request->setHeaders($headers);
 
-    $request->setContent(Json::encode($pars));
+    $parsEncode = Json::encode($pars);
+    $request->setContent($parsEncode);
     $request->setMethod('POST');
+
+    echo "\n";
+    echo "Pars: " . $parsEncode."\n";
 }
 
 $uri = $request->getUri();
@@ -34,5 +39,5 @@ $app->run();
 $content = $app->getResponse()
     ->getContent();
 
-//echo "\n".$content."\n\n";
+echo "\n\n";
 

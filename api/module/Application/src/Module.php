@@ -70,7 +70,6 @@ class Module
             $headers->addHeaderLine("Feature-Policy: vibrate 'self'; sync-xhr 'self'");
         }, 100000);
 
-
     }
 
     public function getServiceConfig(): array

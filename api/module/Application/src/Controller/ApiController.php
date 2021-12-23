@@ -258,4 +258,9 @@ class ApiController extends AbstractRestfulController implements IController
         }
         return isset($data[$param]) ? $data[$param] : $default;
     }
+
+    public function getDateTime()
+    {
+        return (new \DateTime())->format("Y-m-d H:i:s.u");
+    }
 }

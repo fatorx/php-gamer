@@ -8,11 +8,15 @@
 </head>
 <body>
 
-<div class="options hide">
-    <h2>Options</h2>
-    <a href="" id="#session-users">List</a>
-    -
-    <a href="" id="#session-close">Close</a>
+<div>
+    <button id="send-ping">PING</button>
+    <button id="send-ping-data">PING DATA</button>
+    <button id="send-timer">TIMER 3</button>
+</div>
+
+<div>
+    <h3>Message WS</h3>
+    <p id="message"></p>
 </div>
 
 <script>
@@ -36,9 +40,11 @@
         control(message, actions)
     });
 
+
+
     const control = (message, obj) => {
         const data = JSON.parse(message.data)
-        let actionName = getActionFunction(data.action)
+        let actionName = getActionFunction(data.result.action)
         if (typeof(obj[actionName]) == 'function') {
             obj[actionName](data)
             return true;
@@ -48,15 +54,22 @@
     }
 
     const getActionFunction = (action) => {
-        let funcPars = action.split('-')
-        let parts = funcPars.length
         let actionName = ''
-        for (let i = 0; i < parts; ++i) {
-            if (i > 0) {
-                funcPars[i] = capitalizeFirstLetter(funcPars[i])
+        try {
+            let funcPars = action.split('-')
+            let parts = funcPars.length
+
+            for (let i = 0; i < parts; ++i) {
+                if (i > 0) {
+                    funcPars[i] = capitalizeFirstLetter(funcPars[i])
+                }
+                actionName += funcPars[i]
             }
-            actionName += funcPars[i]
+        } catch (e) {
+            console.log(e)
+            return 'message'
         }
+
         return actionName + 'Message'
     }
 
@@ -65,29 +78,89 @@
     }
 
     const actions = {
+
         state: {
             start:false,
             enter: false
         },
-        init: () => {
 
-            actions.setActionClick('#session-users', actions.list)
-            actions.setActionClick('#session-close', actions.closeSession)
+        init: () => {
+            document.querySelector('#send-ping').addEventListener('click', () => {
+                actions.ping()
+            })
+
+            document.querySelector('#send-ping-data').addEventListener('click', () => {
+                actions.postPing()
+            })
+
+            document.querySelector('#send-timer').addEventListener('click', () => {
+                actions.timer()
+            })
         },
+
+        message: () => {
+            alert('Message')
+        },
+
         closeSession: e => {
             e.preventDefault()
             console.log('closeSession')
             ws.close();
         },
+
         helloMessage: (data) => {
             console.log(data)
+            let dateTime = data.request_time
+            document.querySelector('#message').innerHTML = dateTime + "<br />" + data.result.message;
         },
-        setDisplay: (id, status) => {
-            document.getElementById(id).style.display = status
+
+        pingMessage: (data) => {
+            console.log(data)
+            let dateTime = data.request_time
+            document.querySelector('#message').innerHTML = dateTime + "<br />" + data.result.message;
         },
-        setActionClick: (id, fn) => {
-            document.getElementById(id).addEventListener('click', fn)
+
+        ping: () => {
+            let sendData = {
+                'route' : '/ping'
+            }
+            let encodeData = JSON.stringify(sendData);
+            ws.send(encodeData);
+        },
+
+        postPingMessage: (data) => {
+            console.log(data)
+            let dateTime = data.request_time
+            document.querySelector('#message').innerHTML = dateTime + "<br />" + data.result.message;
+        },
+
+        postPing: () => {
+            let sendData = {
+                'route' : '/post-ping',
+                'data'  : {
+                    'name': 'User Name and Last Name',
+                    'number': 42
+                }
+            }
+            let encodeData = JSON.stringify(sendData);
+            ws.send(encodeData);
+        },
+
+        timerMessage: (data) => {
+            console.log(data)
+            let dateTime = data.request_time
+            document.querySelector('#message').innerHTML = dateTime + "<br />" + data.result.message;
+        },
+
+        timer: () => {
+            let sendData = {
+                'route' : '/timer'
+            }
+
+            let encodeData = JSON.stringify(sendData);
+            ws.send(encodeData);
         }
+
     }
 
 </script>

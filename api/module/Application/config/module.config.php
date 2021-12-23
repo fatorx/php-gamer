@@ -3,7 +3,6 @@
 namespace Application;
 
 use Laminas\Router\Http\Literal;
-use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -12,7 +11,7 @@ return [
             'home' => [
                 'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/ping',
+                    'route'    => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'isAuthorizationRequired' => false,
@@ -21,13 +20,51 @@ return [
                     ],
                 ],
             ],
-            '404' => [
-                'type' => Segment::class,
+            'ping' => [
+                'type'    => Literal::class,
                 'options' => [
-                    'route' => '/:*',
+                    'route'    => '/ping',
                     'defaults' => [
-                        'controller' => Controller\RouteNotFoundController::class,
-                        'action' => 'routeNotFound',
+                        'controller' => Controller\IndexController::class,
+                        'isAuthorizationRequired' => false,
+                        'methodsAuthorization'    => ['GET'],
+                        'action'     => 'ping',
+                    ],
+                ],
+            ],
+            'post-ping' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/post-ping',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'isAuthorizationRequired' => false,
+                        'methodsAuthorization'    => ['POST'],
+                        'action'     => 'postPing',
+                    ],
+                ],
+            ],
+            'timer' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/timer',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'isAuthorizationRequired' => false,
+                        'methodsAuthorization'    => ['GET'],
+                        'action'     => 'timer',
+                    ],
+                ],
+            ],
+            'loop' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/loop',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'isAuthorizationRequired' => false,
+                        'methodsAuthorization'    => ['GET'],
+                        'action'     => 'loop',
                     ],
                 ],
             ],
@@ -35,8 +72,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-            Controller\RouteNotFoundController::class => InvokableFactory::class,
+            Controller\IndexController::class => InvokableFactory::class
         ],
     ],
     'view_manager' => [

@@ -2,6 +2,8 @@
 
 namespace Application\WebSocket\Events;
 
+use Application\Request\ControlRequest;
+use Application\Request\Parameters;
 use Application\WebSocket\Connections;
 use Application\WebSocket\Connections\ControlConnections;
 use Exception;
@@ -35,5 +37,25 @@ class Message
         /** @var Iterator $connections */
         $connections = $server->connections;
         $origin      = $message->fd;
+
+        try {
+            $parameters = new Parameters($message->data);
+            $this->request($server, $parameters, $origin, $connections);
+        } catch(Exception $e) {
+            $json = [
+                'error' => $e->getMessage(),
+                'code'  => $e->getCode(),
+                'trace' => $e->getTraceAsString()
+            ];
+            $jsonEncode  = Json::encode($json);
+            $server->push($origin, $jsonEncode);
+        }
+    }
+
+    public function request($server, Parameters $parameters, $origin, $connections)
+    {
+        $controlReq = new ControlRequest($this->config);
+        $content    = $controlReq->perform($parameters, $origin)->getContent();
+        Connections::sendToConnections($connections, $server, 0, $content);
     }
 }
