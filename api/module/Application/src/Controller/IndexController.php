@@ -10,10 +10,12 @@ class IndexController extends ApiController
      */
     public function indexAction(): JsonModel
     {
+        $dateTime = $this->getDateTime();
+        // code
         $data = [
             'action'  => 'index',
             'message' => 'root',
-            'datetime_action' => $this->getDateTime()
+            'datetime_action' => $dateTime
         ];
         return $this->createResponse($data);
     }
@@ -23,10 +25,12 @@ class IndexController extends ApiController
      */
     public function pingAction(): JsonModel
     {
+        $dateTime = $this->getDateTime();
+        // code
         $data = [
             'action'  => 'ping',
             'message' => 'pong',
-            'datetime_action' => $this->getDateTime()
+            'datetime_action' => $dateTime
         ];
         return $this->createResponse($data);
     }
@@ -36,13 +40,17 @@ class IndexController extends ApiController
      */
     public function postPingAction(): JsonModel
     {
+        $dateTime = $this->getDateTime();
+        // code
+
         $dataParameters = $this->getJsonParameters();
+        $dateExit = $this->getDateTime();
 
         $data = [
             'action' => 'post-ping',
             'message' => 'post pong : ' . json_encode($dataParameters),
             'data' => $dataParameters,
-            'datetime_action' => $this->getDateTime()
+            'datetime_action' => $dateTime
         ];
 
         return $this->createResponse($data);
@@ -72,16 +80,17 @@ class IndexController extends ApiController
     public function loopAction(): JsonModel
     {
         $dateTime = $this->getDateTime();
-        $times = 100;
+        $times = 1000;
         $list  = [];
         for($i = 0; $i < $times; ++$i) {
             $list[] = $i;
         }
-
+        $dateTimeExit = $this->getDateTime();
         $data = [
             'action'  => 'timer',
             'message' => $list,
-            'datetime_action' => $dateTime
+            'datetime_action' => $dateTime,
+            'datetime_exit'   => $dateTimeExit,
         ];
 
         return $this->createResponse($data);

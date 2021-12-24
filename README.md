@@ -7,13 +7,21 @@ First time
 ```bash
 $ git clone git@github.com:fatorx/php-gamer.git
 $ cd php-gamer
-$ cp .env.dist .env
-$ docker-compose --build 
+$ chmod +x docker-build.sh
 $ chmod +x docker-ws.sh
+$ ./docker-build.sh
+$ ./docker-ws.sh
+```
+
+Next times
+
+```bash
+$ cd php-gamer
 $ ./docker-ws.sh
 ```
 
 - Access in a browser: http://localhost:8007/client.html
+
 
 ---
 

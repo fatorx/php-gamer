@@ -1,6 +1,6 @@
 <?php
-//echo "\n here \n"; exit();
 
+//echo "\n here \n"; exit();
 use Application\Http\Header\Custom;
 use Laminas\Http\Headers;
 use Laminas\Json\Json;
@@ -10,6 +10,7 @@ use Laminas\Http\PhpEnvironment\Request;
 $bootstrapConfig = include __DIR__ . '/bootstrap.php';
 $app             = Application::init($bootstrapConfig);
 $appConfig       = $app->getConfig()['app'];
+
 
 $route = $argv[1] ?? '/';
 $pars  = $argv[2] ?? '';

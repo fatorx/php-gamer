@@ -21,8 +21,8 @@
 
 <script>
 
-    let host='localhost';
-    let port=8000;
+    let host = 'localhost';
+    let port = 8000;
 
     const ws = new WebSocket('ws://'+ host + ':' + port);
 
@@ -39,8 +39,6 @@
     ws.addEventListener('message', (message) => {
         control(message, actions)
     });
-
-
 
     const control = (message, obj) => {
         const data = JSON.parse(message.data)
