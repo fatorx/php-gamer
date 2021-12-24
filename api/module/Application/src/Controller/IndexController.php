@@ -67,7 +67,7 @@ class IndexController extends ApiController
 
         $data = [
             'action'  => 'timer',
-            'message' => 'timer: ' . $times,
+            'message' => 'Server timer: ' . $times,
             'datetime_action' => $dateTime
         ];
 
@@ -95,5 +95,4 @@ class IndexController extends ApiController
 
         return $this->createResponse($data);
     }
-
 }

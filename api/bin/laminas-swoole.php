@@ -3,6 +3,7 @@
 use Application\Util\Environment;
 use Application\WebSocket\Connections\ControlConnections;
 use Application\WebSocket\Events\Start as StartEvent;
+use Application\WebSocket\Events\Open as OpenEvent;
 use Application\WebSocket\Events\Message as MessageEvent;
 use Application\WebSocket\Events\Close as CloseEvent;
 use Application\WebSocket\Events\Disconnect as DisconnectEvent;
@@ -21,22 +22,7 @@ $server = new Server('localhost', $swoolePort);
 
 $c = new ControlConnections();
 
-$server->on('open', function(Server $server, Request $request) use ($c) {
-
-    $c->addConnection($server->getWorkerId(), $request->fd);
-
-    Console::info("Connection open (user: {$request->fd}, worker: {$server->getWorkerId()})");
-    Console::info('Total connections: '.count($c->getConnections()));
-
-    $data = [
-        'result' => [
-            'action'  => 'hello',
-            'message' => 'Hello WS',
-        ],
-        'request_time' => (new \Datetime())->format('Y-m-d H:i:s.u')
-    ];
-    $server->push($request->fd, json_encode($data));
-});
+$server->on('open', new OpenEvent($bootstrapConfig, $c));
 
 $server->on('start', new StartEvent($bootstrapConfig, $swoolePort));
 
