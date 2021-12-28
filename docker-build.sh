@@ -1,5 +1,5 @@
-cp config/autoload/local.php.dist config/autoload/local.php
 cp .env.dist .env
+cp api/config/autoload/local.php.dist api/config/autoload/local.php
 
 if [ -f .env ]; then
   export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)

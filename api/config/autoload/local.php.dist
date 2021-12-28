@@ -12,17 +12,20 @@
  * credentials from accidentally being committed into version control.
  */
 
+use Application\Util\Environment;
+use Doctrine\DBAL\Driver\PDO\MySQL\Driver;
+
 return [
     'doctrine' => [
         'connection' => [
             'orm_default' => [
-                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'driverClass' => Driver::class,
                 'params' => [
-                    'host'      => env('DB_HOST'),
-                    'dbname'    => env('DB_DATABASE'),
-                    'user'      => env('DB_USER'),
-                    'password'  => env('DB_PASSWORD'),
-                    'port' => env('DB_PORT')
+                    'host'      => Environment::env('DB_HOST'),
+                    'dbname'    => Environment::env('DB_DATABASE'),
+                    'user'      => Environment::env('DB_USER'),
+                    'password'  => Environment::env('DB_PASSWORD'),
+                    'port' => Environment::env('DB_PORT')
 
                 ]
             ],
@@ -42,11 +45,16 @@ return [
             'pageNotFoundKey' => 'Request Not Found.'
         ],
         'jwtAuth' => [
-            'cypherKey' => env('CYPHER_KEY'),
+            'cypherKey' => Environment::env('CYPHER_KEY'),
             'tokenAlgorithm' => 'HS256'
         ],
     ],
     'app' => [
-        'app-key' => env('APP_KEY'),
+        'app_key' => Environment::env('APP_KEY'),
+        'app_username' => Environment::env('APP_USERNAME'),
+        'app_password' => Environment::env('APP_PASSWORD'),
+        'redis_host'   => Environment::env('REDIS_HOST'),
+        'swoole_port'  => Environment::env('SWOOLE_PORT'),
+        'environment'  => Environment::env('ENVIRONMENT')
     ],
 ];
